@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 820" width="920" height="820" role="img" aria-labelledby="depTitle depDesc">
+  <title id="depTitle">Diagrama de despliegue de JarvisUNOQ</title>
+  <desc id="depDesc">Un notebook accede por SSH a la Arduino UNO Q en la LAN 192.168.1.75. La placa corre Debian 13 aarch64 con 3,6 GiB de RAM visibles, una partición root de 9,8 GB casi llena y /home/arduino de 18 GB con unos 14 GB libres. Ollama escucha solo en 127.0.0.1:11434.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+    </marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#131e33"/>
+      <stop offset="100%" stop-color="#0e1727"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="920" height="820" fill="url(#bg)"/>
+
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <text x="40" y="46" font-size="22" font-weight="700" fill="#e6edf7">JarvisUNOQ · despliegue</text>
+    <text x="40" y="70" font-size="13" fill="#8fa2bd">Una placa, dos puertos útiles y una regla de sudo acotada a systemctl ollama.</text>
+  </g>
+
+  <!-- Host -->
+  <g>
+    <rect x="40" y="120" width="220" height="170" rx="12" fill="url(#panel)" stroke="#2b3d59" stroke-width="1.5"/>
+    <text x="60" y="150" font-size="15" font-weight="600" fill="#e6edf7">Notebook del operador</text>
+    <text x="60" y="178" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9fb3cc">ssh -p 22 -i ~/.ssh/unoq_key</text>
+    <text x="60" y="198" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9fb3cc">~/…/scripts/deploy-unoq.sh</text>
+    <text x="60" y="218" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9fb3cc">tar + ssh (sin rsync)</text>
+    <text x="60" y="238" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9fb3cc">curl para bajar Ollama</text>
+    <text x="60" y="266" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#6f809a">No guarda modelos ni claves</text>
+  </g>
+
+  <!-- Enlace -->
+  <line x1="260" y1="205" x2="352" y2="205" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="306" y="176" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="10.5" fill="#7f8ea8">LAN</text>
+  <text x="306" y="190" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#9fb3cc">192.168.1.75</text>
+  <text x="306" y="228" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#9fb3cc">SSH 22/2222</text>
+
+  <!-- Placa -->
+  <g>
+    <rect x="360" y="96" width="520" height="660" rx="22" fill="#0f172a" stroke="#2b3d59" stroke-width="1.8"/>
+    <text x="384" y="132" font-size="20" font-weight="700" fill="#e6edf7">Arduino UNO Q</text>
+    <text x="384" y="154" font-size="12.5" fill="#8fa2bd">Debian 13 «trixie» · aarch64 · 4 núcleos</text>
+
+    <rect x="694" y="112" width="162" height="30" rx="15" fill="#12233a" stroke="#31486b" stroke-width="1"/>
+    <text x="775" y="132" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#fbbf24">3,6 GiB RAM visibles</text>
+  </g>
+
+  <!-- CPU / térmica -->
+  <g>
+    <rect x="384" y="176" width="472" height="58" rx="10" fill="#111d31" stroke="#25374f" stroke-width="1"/>
+    <text x="400" y="199" font-size="11" fill="#7f8ea8">CPU</text>
+    <text x="840" y="199" text-anchor="end" font-size="12.5" fill="#e6edf7">4 × Qualcomm Kryo-V2 @ 2,0 GHz</text>
+    <text x="400" y="221" font-size="11" fill="#7f8ea8">Temperatura en reposo</text>
+    <text x="840" y="221" text-anchor="end" font-size="12.5" fill="#e6edf7">31–39 °C</text>
+  </g>
+
+  <!-- Memoria -->
+  <g>
+    <rect x="384" y="248" width="472" height="104" rx="10" fill="#111d31" stroke="#25374f" stroke-width="1"/>
+    <text x="400" y="272" font-size="11" fill="#7f8ea8">Memoria con el 0,5B cargado</text>
+    <text x="840" y="272" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#9fb3cc">2,4 GiB disponibles</text>
+    <rect x="400" y="284" width="440" height="22" rx="6" fill="#16233a"/>
+    <rect x="400" y="284" width="134.4" height="22" rx="6" fill="#f87171"/>
+    <rect x="534.4" y="284" width="232.2" height="22" fill="#34d399"/>
+    <rect x="766.6" y="284" width="73.4" height="22" rx="6" fill="#33415a"/>
+    <text x="400" y="328" font-size="10.5" fill="#f87171">usado 1,1 GiB</text>
+    <text x="650" y="328" text-anchor="middle" font-size="10.5" fill="#34d399">libre 1,9 GiB</text>
+    <text x="840" y="328" text-anchor="end" font-size="10.5" fill="#8fa2bd">cache 0,6 GiB</text>
+  </g>
+
+  <!-- Almacenamiento -->
+  <g>
+    <rect x="384" y="364" width="472" height="142" rx="10" fill="#111d31" stroke="#25374f" stroke-width="1"/>
+    <text x="400" y="388" font-size="11" fill="#7f8ea8">Almacenamiento</text>
+    <text x="840" y="405" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#f87171">9,8 GB · casi lleno</text>
+    <text x="400" y="405" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#c8d4e5">/ (root)</text>
+    <rect x="400" y="412" width="440" height="14" rx="4" fill="#16233a"/>
+    <rect x="400" y="412" width="440" height="14" rx="4" fill="#f87171" opacity="0.55"/>
+    <text x="400" y="456" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#c8d4e5">/home/arduino</text>
+    <text x="840" y="456" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#34d399">18 GB · ~14 GB libres</text>
+    <rect x="400" y="464" width="440" height="14" rx="4" fill="#16233a"/>
+    <rect x="400" y="464" width="98" height="14" rx="4" fill="#38bdf8"/>
+    <text x="400" y="494" font-size="10.5" fill="#6f809a">Ollama y los modelos viven en /home/arduino, nunca en /.</text>
+  </g>
+
+  <!-- Servicios -->
+  <g>
+    <rect x="384" y="520" width="472" height="112" rx="10" fill="#111d31" stroke="#25374f" stroke-width="1"/>
+    <text x="400" y="544" font-size="11" fill="#7f8ea8">Servicios y puertos</text>
+    <circle cx="406" cy="564" r="4" fill="#34d399"/>
+    <text x="420" y="568" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#e6edf7">sshd</text>
+    <text x="840" y="568" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#9fb3cc">22 / 2222 · LAN</text>
+    <circle cx="406" cy="588" r="4" fill="#fbbf24"/>
+    <text x="420" y="592" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#e6edf7">ollama.service</text>
+    <text x="840" y="592" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#fbbf24">11434 · 127.0.0.1</text>
+    <text x="400" y="618" font-size="10.5" fill="#6f809a">Ollama escucha solo en loopback; no se publica a la LAN ni a internet.</text>
+  </g>
+
+  <!-- Modelos -->
+  <g>
+    <rect x="384" y="646" width="472" height="90" rx="10" fill="#111d31" stroke="#25374f" stroke-width="1"/>
+    <text x="400" y="670" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" fill="#7f8ea8">/home/arduino/.ollama/models</text>
+    <rect x="400" y="682" width="212" height="34" rx="8" fill="#12233a" stroke="#31486b" stroke-width="1"/>
+    <text x="506" y="704" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#38bdf8">qwen2.5:0.5b · 397 MB</text>
+    <rect x="628" y="682" width="228" height="34" rx="8" fill="#12233a" stroke="#31486b" stroke-width="1"/>
+    <text x="742" y="704" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" fill="#a78bfa">qwen2.5:1.5b · 986 MB</text>
+  </g>
+
+  <text x="460" y="796" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#6f809a">Linux ve 3,6 GiB de RAM en esta unidad: la placa no expone los 8 GB nominales al sistema.</text>
+</svg>

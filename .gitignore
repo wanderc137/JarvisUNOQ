@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv/
+venv/
+logs/
+*.log
+models/
+*.onnx
+*.gguf
+*.bin
+*.zst
+*.tar.gz
+config/openclaw.json
+config/*.local
+.DS_Store

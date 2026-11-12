@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 800" width="920" height="800" role="img" aria-labelledby="archTitle archDesc">
+  <title id="archTitle">Arquitectura de JarvisUNOQ, fase 1: chat de texto local</title>
+  <desc id="archDesc">El operador escribe por SSH; jarvis-chat.py envía un POST a la API local de Ollama en 127.0.0.1:11434; llama-server ejecuta Qwen2.5 y devuelve una respuesta breve en español. Todo ocurre dentro de la placa, sin nube ni GPU.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+    </marker>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#070b14"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#131e33"/>
+      <stop offset="100%" stop-color="#0f1829"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="920" height="800" fill="url(#bgGrad)"/>
+
+  <g font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <text x="40" y="46" font-size="22" font-weight="700" fill="#e6edf7">JarvisUNOQ · arquitectura de la fase 1</text>
+    <text x="40" y="70" font-size="13" fill="#8fa2bd">Chat de texto 100 % local sobre Arduino UNO Q. Sin nube, sin GPU, sin telemetría.</text>
+  </g>
+
+  <!-- Operador -->
+  <g>
+    <rect x="250" y="96" width="420" height="82" rx="12" fill="url(#boxGrad)" stroke="#2b3d59" stroke-width="1.5"/>
+    <text x="460" y="126" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600" fill="#e6edf7">Terminal del operador</text>
+    <text x="460" y="150" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#9fb3cc">ssh -p 22 -i ~/.ssh/unoq_key</text>
+    <text x="460" y="168" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12.5" fill="#9fb3cc">arduino@192.168.1.75</text>
+  </g>
+
+  <line x1="460" y1="178" x2="460" y2="212" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="474" y="200" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#7f8ea8">texto por stdin</text>
+
+  <!-- Cliente -->
+  <g>
+    <rect x="235" y="216" width="450" height="104" rx="12" fill="url(#boxGrad)" stroke="#2b3d59" stroke-width="1.5"/>
+    <text x="255" y="244" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" font-weight="600" fill="#38bdf8">scripts/jarvis-chat.py</text>
+    <text x="255" y="268" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#9fb3cc">argparse · urllib.request · json · solo stdlib</text>
+    <text x="255" y="288" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#9fb3cc">num_ctx=4096 · num_predict=64 · temp=0,3</text>
+    <text x="255" y="308" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#9fb3cc">historial acotado a 4 mensajes</text>
+  </g>
+
+  <line x1="460" y1="320" x2="460" y2="364" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="474" y="342" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#7f8ea8">POST /api/chat (JSON)</text>
+  <text x="474" y="358" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#7f8ea8">stream = false</text>
+
+  <!-- Frontera loopback -->
+  <g>
+    <rect x="160" y="370" width="600" height="224" rx="16" fill="#0d1a2b" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.5" stroke-dasharray="7 5"/>
+    <text x="180" y="394" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" fill="#fbbf24">ollama.service · 127.0.0.1:11434 · loopback</text>
+    <text x="740" y="394" text-anchor="end" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11" fill="#7f8ea8">sin salida a internet</text>
+  </g>
+
+  <g>
+    <rect x="200" y="410" width="520" height="72" rx="10" fill="#12203a" stroke="#31486b" stroke-width="1.2"/>
+    <text x="220" y="438" font-family="ui-sans-serif, system-ui, sans-serif" font-size="14.5" font-weight="600" fill="#e6edf7">Ollama v0.40.14 — ollama serve</text>
+    <text x="220" y="462" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#9fb3cc">MAX_LOADED_MODELS=1 · NUM_PARALLEL=1 · KEEP_ALIVE=5m</text>
+  </g>
+
+  <line x1="460" y1="482" x2="460" y2="508" stroke="#38bdf8" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <g>
+    <rect x="200" y="510" width="520" height="64" rx="10" fill="#12203a" stroke="#31486b" stroke-width="1.2"/>
+    <text x="220" y="536" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#e6edf7">llama-server · Qwen2.5 0.5B Instruct Q4_K_M</text>
+    <text x="220" y="558" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11.5" fill="#9fb3cc">4 hilos · 486–940 MB RSS · 10,6 tok/s en generación</text>
+  </g>
+
+  <line x1="460" y1="594" x2="460" y2="636" stroke="#38bdf8" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="474" y="618" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12" fill="#7f8ea8">respuesta</text>
+
+  <!-- Respuesta -->
+  <g>
+    <rect x="250" y="640" width="420" height="76" rx="12" fill="url(#boxGrad)" stroke="#2b3d59" stroke-width="1.5"/>
+    <text x="460" y="670" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16" font-weight="600" fill="#34d399">Respuesta en español</text>
+    <text x="460" y="694" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12.5" fill="#9fb3cc">1–3 oraciones · 1,36–2,44 s con el modelo en caliente</text>
+  </g>
+
+  <text x="460" y="760" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="12.5" fill="#6f809a">El puerto 11434 nunca se publica en la LAN: Ollama escucha solo en loopback.</text>
+</svg>
