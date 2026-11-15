@@ -723,6 +723,57 @@ La lista comentada, con el motivo de cada enlace, está en
 
 ---
 
+## Ficha de evaluación
+
+**Madurez global: 4.2/5**
+
+| Criterio | Nota | Evidencia |
+|---|---:|---|
+| Madurez | 4/5 | Chat de texto operativo con latencias de 1,36 a 2,44 s en caliente y 11,02 s en frío; es una fase 1 sin voz ni integración vehicular. |
+| Reproducibilidad | 4/5 | INSTALL con SHA256 de Ollama, deploy por SSH y scripts de arranque; los modelos se descargan aparte y el binario se recorta a mano a 63 MB. |
+| Documentación | 5/5 | README, BITACORA, PERFORMANCE, INSTALL y ARCHITECTURE con tablas de latencia, memoria, tokens y temperatura. |
+| Honestidad de límites | 5/5 | Declara 3,6 GiB reales frente a los 8 GB nominales, las alucinaciones de los modelos chicos, la falta de voz y los 3,2 tok/s del 1.5B. |
+| Valor demostrativo | 4/5 | Demuestra un LLM local usable en 3,6 GiB sin GPU, con 10,6 tok/s para el 0.5B y 1,1 GiB de RAM ocupada durante la generación. |
+| Facilidad de despliegue | 3/5 | Ollama ARM64 sin CUDA, dos modelos y systemd; requiere SSH, ajustes de partición y pasos manuales de instalación. |
+
+Sirve a quien quiera medir y entender un LLM local pequeño en hardware ARM64 limitado, con cifras de latencia y memoria verificables. La limitación que más pesa es que solo hay texto: sin voz ni acceso al vehículo, el asistente todavía no es el Jarvis que promete el nombre.
+
+## Lo que no funcionó
+
+### Fase 1 · orquestador — OpenClaw descartado por RAM y latencia
+
+El gateway consumía ~1,2 GB de RSS con picos de 1,4 GB, tardaba 112 s en estar listo y el prompt del agente rondaba 4.360 tokens, lo que llevaba cada turno a más de 4 minutos. Se eliminó OpenClaw, se recuperaron 852 MB y 332 MB, y quedó el chat directo contra Ollama.
+
+### Fase 1 · contexto — HTTP 400 por contexto insuficiente
+
+El primer num_ctx de 4096 se quedó corto frente a un prompt real de 12.463 tokens y Ollama devolvió 400. Se subió a 12.288, pero el costo en memoria y latencia no se justificó, así que el chat final usa 4096 con un system prompt corto.
+
+### Fase 1 · empaquetado — Tar ARM64 de 1,5 GB con CUDA
+
+El paquete oficial de Ollama incluía bibliotecas CUDA 12 y 13 inútiles sin GPU NVIDIA y no entraba cómodo en la partición. Se extrajo excluyendo CUDA, quedó un binario de 63 MB y se registró su SHA256 para verificar el despliegue.
+
+### Fase 2 · voz — Voz no implementada y audio bloqueado
+
+La fase 2 de STT/TTS quedó diseñada pero no implementada, y el único USB-C en modo dispositivo impide conectar un micrófono USB directo. El asistente se limita a texto por SSH y la entrada de audio depende de un dispositivo externo por red.
+
+## Preguntas típicas
+
+**¿Qué es?**
+
+Un chat de texto local que corre en la UNO Q con Ollama y Qwen2.5 de 0,5B o 1,5B, accesible por SSH. Incluye scripts de despliegue, arranque, parada y estado, y mide latencia y memoria en la propia placa.
+
+**¿Habla y escucha?**
+
+No. La fase 2 de STT y TTS está diseñada pero no implementada, y el puerto USB-C en modo dispositivo bloquea un micrófono USB directo. Todo el intercambio es texto por SSH.
+
+**¿Cómo se instala y se usa?**
+
+Se copia el paquete ARM64 de Ollama sin CUDA, se instala el servicio, se descargan los modelos Qwen2.5 y se ejecuta scripts/deploy-unoq.sh. Luego se usa ~/start-jarvis.sh, ~/status-jarvis.sh y ~/jarvis-chat.
+
+**¿Qué se puede reutilizar?**
+
+El script de despliegue por tar y SSH, los lanzadores de arranque, parada y estado, y el banco de medición de latencia y memoria. También la configuración de systemd y el system prompt corto para modelos pequeños.
+
 ## Licencia
 
 Código bajo **MIT** (ver [`LICENSE`](LICENSE)). Ollama, Qwen2.5, Debian y Arduino
