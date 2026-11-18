@@ -291,7 +291,8 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 @media(max-width:760px){.concept-grid,.fail-grid{grid-template-columns:1fr}.concept-side{border-left:0;padding-left:0}}
 
 </style>
-<link href="assets/community.css?v=5" rel="stylesheet"/></head>
+<link href="assets/community.css?v=5" rel="stylesheet"/><link href="rec/player.css?v=1" rel="stylesheet"/>
+</head>
 <body style="--accent:#9B8CFF;--accent2:#22D3EE">
 <div class="grid-overlay"></div>
 <div class="glow one"></div>
@@ -306,6 +307,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 <a href="#problema">Visión</a>
 <a href="#como">Cómo funciona</a>
 <a href="#arquitectura">Arquitectura</a>
+<a href="#video">Video</a>
 <a href="#docs">Documentación</a>
 <a href="#comunidad">Comunidad</a>
 <a class="btn btn-ghost" href="https://github.com/wanderc137/JarvisUNOQ" rel="noopener" style="padding:9px 15px" target="_blank">GitHub</a>
@@ -355,6 +357,45 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 <div class="timeline reveal"><div class="step"><div class="step-num">01</div><div class="step-body"><h3>SSH a la placa</h3><p>Acceso por clave, sin abrir puertos innecesarios ni exponer la API a la red.</p></div></div><div class="step"><div class="step-num">02</div><div class="step-body"><h3>Ollama local</h3><p>Binario ARM64 sin CUDA, escuchando solo en 127.0.0.1:11434.</p></div></div><div class="step"><div class="step-num">03</div><div class="step-body"><h3>Qwen2.5</h3><p>0.5B para velocidad, 1.5B para calidad. Un modelo cargado a la vez para no ahogar la RAM.</p></div></div><div class="step"><div class="step-num">04</div><div class="step-body"><h3>Chat</h3><p>jarvis-chat.py envía la consulta a /api/chat y muestra la respuesta con estadísticas.</p></div></div><div class="step"><div class="step-num">05</div><div class="step-body"><h3>Medición</h3><p>Cada respuesta registra latencia, tokens y velocidad. Las cifras del README salen de la placa, no de una hoja de cálculo.</p></div></div></div>
 </div>
 </section>
+
+<section class="section tight rec-section" id="video" style="--accent:#2E7DFF;--accent2:#14F195">
+<div class="wrap">
+<div class="rec-kicker">REC · VIDEO · 3:28</div>
+<h2 class="rec-h2">JarvisUNOQ · un LLM dentro de una UNO Q</h2>
+<p class="rec-lead">Cómo una Arduino UNO Q de 3,6 GiB y cuatro núcleos corre un asistente local: system prompt defensivo, cliente HTTP con stdlib, historial acotado, servicio systemd, arranque con sudoers acotado y medición de CPU y RAM desde /proc.</p>
+<div class="rec-banner">
+<span class="rec-banner-icon">📋</span>
+<strong>Puedes copiar y pegar los comandos del video desde el video !!!</strong>
+<span>Pausá, seleccioná el texto de la terminal y copiá.</span>
+</div>
+<div class="rec-shell">
+<div class="rec-bar"><i></i><i></i><i></i><span class="rec-title">JarvisUNOQ · un LLM dentro de una UNO Q · asciinema</span><span class="rec-rec"><b></b>REC</span></div>
+<div class="rec-screen-wrap">
+<div class="rec-screen" id="rec-screen"></div>
+<div class="rec-poster" id="rec-poster">
+<div class="rec-kicker">ASCIINEMA · 3:28</div>
+<h3>JarvisUNOQ · un LLM dentro de una UNO Q</h3>
+<p>Cómo una Arduino UNO Q de 3,6 GiB y cuatro núcleos corre un asistente local: system prompt defensivo, cliente HTTP con stdlib, historial acotado, servicio systemd, arranque con sudoers acotado y medición de CPU y RAM desde /proc.</p>
+<div class="rec-poster-meta">JarvisUNOQ · código real</div>
+<button class="rec-btn rec-primary" id="rec-start" type="button">▶ Reproducir</button>
+</div>
+</div>
+<div class="rec-controls">
+<button class="rec-btn rec-primary" id="rec-play" type="button">▶ Reproducir</button>
+<button class="rec-btn" id="rec-restart" type="button">↺ Reiniciar</button>
+<input class="rec-progress" id="rec-range" type="range" min="0" max="1000" value="0" aria-label="Progreso"/>
+<span class="rec-time" id="rec-time">0:00 / 3:28</span>
+<select class="rec-speed" id="rec-speed" aria-label="Velocidad"><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+<button class="rec-btn" id="rec-full" type="button" title="Pantalla completa">⛶</button>
+<button class="rec-btn" id="rec-copy" type="button">⧉ Copiar comandos</button>
+<a class="rec-download" href="rec/JarvisUNOQ.cast" download>descargar .cast</a>
+</div>
+</div>
+<p class="rec-note">Los fragmentos corresponden a scripts/jarvis-chat.py, scripts/start-jarvis.sh, scripts/measure-jarvis.py y config/. Las cifras de rendimiento son las mediciones publicadas en docs/PERFORMANCE.md, no estimaciones.</p>
+<div class="rec-chapters"><span class="rec-chip"><b>0:06</b> EL PROBLEMA</span><span class="rec-chip"><b>0:23</b> ARQUITECTURA</span><span class="rec-chip"><b>0:40</b> EL SYSTEM PROMPT</span><span class="rec-chip"><b>0:56</b> TRANSPORTE</span><span class="rec-chip"><b>1:14</b> FALLAR CON MENSAJE</span><span class="rec-chip"><b>1:29</b> MÉTRICAS</span><span class="rec-chip"><b>1:44</b> HISTORIAL</span><span class="rec-chip"><b>2:01</b> EL SERVICIO</span><span class="rec-chip"><b>2:18</b> ARRANQUE</span><span class="rec-chip"><b>2:33</b> PRIVILEGIOS</span><span class="rec-chip"><b>2:46</b> MEDIR</span><span class="rec-chip"><b>3:01</b> CÓMO EJECUTARLO</span></div>
+</div>
+</section>
+
 <section class="section tight" id="arquitectura">
 <div class="wrap">
 <div class="section-head reveal">
@@ -467,5 +508,7 @@ footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08);pa
 </script>
 <script>window.PORTFOLIO_COMMUNITY = {"account": "wanderc137", "repo": "JarvisUNOQ", "coinNamespace": "wanderc137-jarvisunoq-coins-v1", "faqs": [{"q": "¿Corre sin nube?", "a": "Sí. Ollama y Qwen2.5 0.5B/1.5B Q4_K_M corren localmente en la UNO Q; no se envía nada a Internet."}, {"q": "¿Qué hardware necesita?", "a": "Arduino UNO Q con Debian 13 aarch64 y <b>3,6 GiB</b> de RAM visibles; no hace falta GPU."}, {"q": "¿Qué rendimiento tiene?", "a": "Mediciones reales: 11,02 s para el primer token, 1,36 s por token en el modelo pequeño y hasta 16 tok/s en el benchmark; el README separa cada caso."}, {"q": "¿Cómo se usa?", "a": "Se arranca Ollama en loopback <code>11434</code> y se ejecuta <code>scripts/jarvis-chat.py</code>; el detalle está en <code>docs/INSTALL.md</code>."}, {"q": "¿Qué límites tiene?", "a": "Modelo pequeño, contexto corto y respuestas limitadas; no es un asistente general ni reemplaza un servidor."}]};</script>
 <script defer="" src="assets/community.js?v=6"></script>
+<script defer src="rec/JarvisUNOQ.cast.js?v=1"></script>
+<script defer src="rec/player.js?v=1"></script>
 </body>
 </html>
